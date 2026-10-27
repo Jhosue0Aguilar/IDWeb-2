@@ -23,3 +23,13 @@ exports.create = (req, res) => {
   db.cursos.push(nuevo);
   res.status(201).json({ status: 'success', data: nuevo });
 };
+
+exports.update = (req, res) => {
+  const curso = db.cursos.find(c => c.id === Number(req.params.id));
+  if (!curso) return res.status(404).json({ status: 'fail', message: 'Curso no encontrado' });
+  const { nombre, codigo, creditos } = req.body;
+  if (nombre !== undefined) curso.nombre = nombre;
+  if (codigo !== undefined) curso.codigo = codigo;
+  if (creditos !== undefined) curso.creditos = Number(creditos);
+  res.status(200).json({ status: 'success', data: curso });
+};

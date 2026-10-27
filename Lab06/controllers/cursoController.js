@@ -33,3 +33,10 @@ exports.update = (req, res) => {
   if (creditos !== undefined) curso.creditos = Number(creditos);
   res.status(200).json({ status: 'success', data: curso });
 };
+
+exports.remove = (req, res) => {
+  const idx = db.cursos.findIndex(c => c.id === Number(req.params.id));
+  if (idx === -1) return res.status(404).json({ status: 'fail', message: 'Curso no encontrado' });
+  db.cursos.splice(idx, 1);
+  res.status(200).json({ status: 'success', message: 'Curso eliminado correctamente' });
+};

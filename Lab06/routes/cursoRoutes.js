@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const ctrl = require('../controllers/cursoController');
+const authMiddleware = require('../middlewares/authMiddleware');
+
+router.use(authMiddleware);
 
 router.get('/', ctrl.getAll);
 router.get('/:id', ctrl.getById);
